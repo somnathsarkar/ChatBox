@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" action="{% url 'addfriendsresults' %}">
+    {% csrf_token %}
+    Enter User-Name to add: <br />
+    <input type="text" name="username" />
+    <button type="submit"class="btn btn-primary">Add</button>
+    <br />
+    <br />
+    Enter User-Name to delete:<br />
+    <input type="text" name="del_username" />
+    <button type="submit"class="btn btn-danger">Delete</button>
+</form>
+
+{% endblock %}

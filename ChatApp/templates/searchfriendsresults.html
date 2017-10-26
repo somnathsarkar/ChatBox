@@ -1,0 +1,8 @@
+{% extends 'searchfriends.html' %}
+
+{% block content %}
+<br />
+       <h3>{{searched_result.username}} is found</h3> 
+        <hr />
+        <h4>First Name: {{searched_result.first_name}} <br />  Last Name: {{searched_result.last_name}}</h4>
+{% endblock %}

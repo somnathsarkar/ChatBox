@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" action="{% url 'searchfriendsresults' %}">
+    {% csrf_token %}
+    Enter User-Name: <br />
+    <input type="text" name="username" />
+    <button type="submit">Search</button>
+</form>
+{% endblock %}

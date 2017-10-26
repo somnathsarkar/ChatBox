@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4 align="center">Logged-in user : {{user.username}}</h4><br />
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <h2>Hello <strong>{{user.username}}</strong></h2>
+            <p>You are on your Dashboard</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-6">
+            <h3><strong>Friends</strong></h3>
+            {% for u in friends %}
+            <a class="user_tile" href ="{% url 'account' u.user_B %}">{{u.user_B}}</a>
+            {% endfor %}
+        </div>
+        <div class="col col-md-6">
+        <form name="myForm" onsubmit="return sendmsg();" method="POST">
+            {% csrf_token %}
+            <input type="text" name="msg_input" />
+            <input type="submit" name="Submit" />
+        </form>
+        <br>
+            <div id="chat_box">
+                <table style="width:100%">
+                    <tr>
+                        <th>Sender</th>
+                        <th>Message</th>
+                        <th>Time</th>
+                    </tr>
+                    {% for m in msgs %}
+                    <tr>
+                        <td>
+                            {{m.creator_id}}
+                        </td>
+                        <td>
+                            {{m.message_body}}
+                        </td>
+                        <td>
+                            {{m.create_date}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var ws;
+    function setup() {
+        ws = new WebSocket((window.location.protocol == 'https') ? 'wss://' : 'ws://' + window.location.host + '/')
+        ws.onmessage = function (message) {
+            location.reload(true);
+        }
+    }
+    setup();
+    function sendmsg() {
+        var msg = {
+            sender:"{{user.username}}",
+            recipient:"{{recipient}}",
+            body:document.forms["myForm"]["msg_input"].value
+        };
+        ws.send(JSON.stringify(msg));
+    }
+</script>
+<style>
+    .user_tile{
+        height: 50px;
+        width : 550px;
+        padding: 10px 10px 10px 10px;
+        background-color: lightgray;
+        color:#239627;
+    }
+    .user_tile:hover {
+        box-shadow: 10px 10px 5px #888888;
+    }
+    table {
+         border-collapse: collapse;
+    }
+    th {
+       background-color: #239627;
+       color: white;
+    }
+    table, th, td{
+        border: 1px solid black;
+        padding: 5px;
+        text-align: left;
+    }
+    tr:nth-child(even) {background-color: #B1B0B0}
+    p,h2 {
+        font-family: "Times New Roman", Times, serif;
+    }
+    #chat_box{
+        height:300px;
+        overflow-y:scroll;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" action="{% url 'mssgs' %}">
+    {% csrf_token %}
+    Enter User-Name: <br />
+    <input type="text" name="username" />
+    <br />
+    <br />
+    Enter string to search:<br />
+    <input type="text" name="string" />
+    <br />
+    <br />
+    <button type="submit" name="search_string">Search</button>
+</form>
+{% endblock %}
