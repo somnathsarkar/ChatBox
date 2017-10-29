@@ -23,8 +23,13 @@ def home(request):
 
 def account(request,parameter):
     friends = Friendship.objects.filter(user_A = request.user.username)
-    msgs = Message.objects.filter(Q(creator_id = parameter)|Q(creator_id = request.user.username)).order_by('create_date')
-    return render(request,'account.html',{'user':request.user,'msgs':msgs, 'friends' : friends})
+    recipient = None
+    try:
+        recipient = User.objects.get(username=parameter)
+    except:
+        pass
+    msgs = Message.objects.filter(Q(creator_id=request.user.username)|Q(creator_id=parameter)).order_by('create_date')
+    return render(request,'account.html',{'user':request.user,'recipient':recipient,'msgs':msgs, 'friends' : friends})
 
 @login_required
 def addfriends(request):
