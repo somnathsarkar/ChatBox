@@ -28,7 +28,7 @@ def account(request,parameter):
         recipient = User.objects.get(username=parameter)
     except:
         pass
-    msgs = Message.objects.filter(Q(creator_id=request.user.username)|Q(creator_id=parameter)).order_by('create_date')
+    msgs = Message.objects.filter((Q(creator_id=request.user.username)&Q(recipient_id=recipient.username))|(Q(creator_id=parameter)&Q(recipient_id=request.user.username))).order_by('create_date')
     return render(request,'account.html',{'user':request.user,'recipient':recipient,'msgs':msgs, 'friends' : friends})
 
 @login_required
