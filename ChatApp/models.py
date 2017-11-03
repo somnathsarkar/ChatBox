@@ -13,7 +13,7 @@ class User(models.Model):
 class Group(models.Model):
     name = models.CharField(max_length=50)
     create_date = models.DateTimeField('Group Creation Date')
-    is_active = models.IntegerField()
+    creator_id= models.ForeignKey(User, on_delete = models.CASCADE)
     def __str__(self):
         return self.name
 
@@ -34,7 +34,7 @@ class Report(models.Model):
 
 class Message(models.Model):
      creator_id = models.ForeignKey(User,on_delete=models.CASCADE,related_name="creator_id")
-     recipient_id = models.ForeignKey(User,on_delete=models.CASCADE,related_name="received_messages")
+     recipient_id = models.CharField(max_length=200)
      message_body = models.CharField(max_length=1000)
      create_date = models.DateTimeField('Message Creation Date')
      def __str__(self):

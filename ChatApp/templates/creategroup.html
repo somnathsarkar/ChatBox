@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" action="{% url 'creategroup' %}">
+    {% csrf_token %}
+    Enter GroupName: <br />
+    <input type="text" name="groupname" />
+    <br />
+    <br />
+    Enter UserName to add to group:<br />
+    <input type="text" name="username" />
+    <br />
+    <button type="submit" class="btn btn-primary">Create/Add</button>
+   
+</form>
+{% endblock %}

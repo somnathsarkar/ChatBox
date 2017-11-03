@@ -7,6 +7,7 @@ urlpatterns =  [
             url(r'^account/(?P<parameter>\w+)/', views.account, name='account'),
             url(r'^mssgs',views.mssgs, name = 'mssgs'),
             url(r'^addfriends/results',views.addfriendsresults, name = 'addfriendsresults'),
+            url(r'^creategroup',views.creategroup, name = 'creategroup'),
             url(r'^addfriends',views.addfriends, name = 'addfriends'),
             url(r'^searchfriends/results',views.searchfriendsresults, name = 'searchfriendsresults'),
             url(r'^searchfriends',views.searchfriends, name = 'searchfriends'),
